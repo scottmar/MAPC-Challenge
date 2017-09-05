@@ -12,6 +12,18 @@ var cartoLayer = new L.layerGroup();
 cartoLayer.addTo(map);
 var sqlQuery = "SELECT * FROM voteforcthulhu";
 
+var voting = "True";
+
+function setyes(){
+	voting = "True";
+	return voting;
+	};
+	
+function setno(){
+	voting = "False";
+	return voting;
+}
+
 // Get CartoDB selection as GeoJSON and Add to Map
 function getGeoJSON(){
   $.getJSON("https://"+cartoDBusername+".carto.com/api/v2/sql?format=GeoJSON&q="+sqlQuery, function(data) {
@@ -147,24 +159,25 @@ var form = dialog.find("form").on("submit", function(event) {
 
 //sets variables to form properties, writes sql query, sends to PHP
 function setData() {
-	var enteredvote = vote.value;
+	var enteredvote = voting;
 	drawnItems.eachLayer(function (layer) {
-		var sql = "INSERT INTO voteforcthulhu (the_geom, vote, latitude, longitude) VALUES (ST_SetSRID(ST_GeomFromGeoJSON('";
+		var sql = "INSERT INTO voteforcthulhu (the_geom, voteintention, latitude, longitude) VALUES (ST_SetSRID(ST_GeomFromGeoJSON('";
 		var a = layer.getLatLng();
 		var sql2 ='{"type":"Point","coordinates":[' + a.lng + "," + a.lat + "]}'),4326),'" + enteredvote + "','" + a.lat + "','" + a.lng +"')";
 		var pURL = sql+sql2;
 		submitToProxy(pURL);
-		console.log("Feature has been submitted to the Proxy");
+		console.log(pURL + "Feature has been submitted to the Proxy");
 	});
 	map.removeLayer(drawnItems);
 	drawnItems = new L.FeatureGroup();
 	console.log("drawnItems has been cleared");
+	voting = null;
 	dialog.dialog("close");
 };
 
 // Submit data to the PHP using a jQuery Post method
 var submitToProxy = function(q){
-  $.post("php/callProxy.php", { // <--- Enter the path to your callProxy.php file here
+  $.post("php/callProxy.php", {
 	qurl:q,
 	cache: false,
 	timeStamp: new Date().getTime()

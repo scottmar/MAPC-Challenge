@@ -76,7 +76,7 @@
             
             <div class="col-md-4">
                 <h1>Vote for Cthulhu</h1>
-                <p>You know you want to. Click your home on the map to the left, and note whether you support mighty Cthulhu's priorities for the City of Boston. Alternatively, enter your address and opinion in the fields below. Cthulhu values honesty and will not lay waste to your household if you plan to vote against him. Probably.</p>
+                <p>You know you want to. Click your home on the map to the left, and note whether you support mighty Cthulhu's priorities for the City of Boston. Alternatively, enter your address and opinion in the fields below. Mighty Cthulhu values honesty and will not lay waste to your household if you plan to vote against him. Probably.</p>
                 <a class="btn btn-primary btn-lg" onclick="startEdits()">Record your opinion.</a>
 				<a class="btn btn-primary btn-lg" onclick="stopEdits()">All done.</a>
             </div>
@@ -88,10 +88,17 @@
 		<div id="dialog" title="Point Information">   
 		  <form>
 			<fieldset>
-			  <label for="username">Your Vote</label>
-			  <input type="text" name="vote" id="vote" placeholder="Pro or con?" class="text ui-widget-content ui-corner-all">
-			  <label for="description">About this Point</label>
-			  <input type="text" name="description" id="description" placeholder="Description for this point" class="text ui-widget-content ui-corner-all">
+			  <label for="question">Will You Vote for Cthulhu?</label>
+			  <br><a class="btn btn-primary btn-lg" onclick="setyes()">Yes</a>
+			  <br><br>
+			  <a class="btn btn-primary btn-lg" onclick="setno()">No</a>
+			  <!--<br><input type="text" id="vote" placeholder="True" class="text ui-widget-content ui-corner-all">
+			  <br><input type="radio" name="vote" value="True"> Yes<br>
+			  <input type="radio" name="vote" value="False"> No<br>
+			  <input type="radio" name="vote" value="null"> Undecided<br>
+			  
+			  <input type="radio" name="vote" id="vote" placeholder="Pro or con?" class="text ui-widget-content ui-corner-all">
+			  -->
 			  <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 			</fieldset>
 		  </form>
