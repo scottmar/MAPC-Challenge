@@ -12,7 +12,7 @@ var cartoLayer = new L.layerGroup();
 cartoLayer.addTo(map);
 var sqlQuery = "SELECT * FROM voteforcthulhu";
 
-var voting = "True";
+var voting = null;
 
 function setyes(){
 	voting = "True";
@@ -30,8 +30,14 @@ function getGeoJSON(){
 	cartoDBPoints = L.geoJson(data,{
 	  pointToLayer: function(feature,latlng){
 		var marker = L.marker(latlng, {icon: redIcon});
+		var marker2 = L.marker(latlng, {icon: blueIcon});
 		marker.bindPopup('<p><em>' + feature.properties.voteintention + '</p>');
-		return marker;
+		marker2.bindPopup('<p><em>' + feature.properties.voteintention + '</p>');
+		if (feature.properties.voteintention){
+			return marker;
+		}
+		else {return marker2};
+		
 	  }
 	}).addTo(cartoLayer);
   });
@@ -96,7 +102,7 @@ if(window.attachEvent) {
 	});
 
 // Boolean global variable used to control visiblity
-var controlOnMap = false;
+var controlOnMap = true;
 
 // Create variable for Leaflet.draw features
 var drawnItems = new L.FeatureGroup();
@@ -127,11 +133,12 @@ map.on('draw:created', function (e) {
   console.log("made a mark");
 });
 
+
 // Use the jQuery UI dialog to create a dialog and set options
 var dialog = $("#dialog").dialog({
   autoOpen: false,
-  height: 300,
-  width: 350,
+  height: 400,
+  width: 450,
   modal: true,
   position: {
 	my: "center center",
@@ -174,6 +181,18 @@ function setData() {
 	voting = null;
 	dialog.dialog("close");
 };
+
+//This version is for taking from the web form rather than the map
+//UNFINISHED
+//function geocode_address(){
+//	var urla = "cdb_geocode_street_point("
+//	search_text text, [city text], [state text], [country text])";
+//	var urlb = 
+//	var urlc = 
+//	var url = urla + urlb + urlc;
+//	var geom = 
+//	return url;
+
 
 // Submit data to the PHP using a jQuery Post method
 var submitToProxy = function(q){
