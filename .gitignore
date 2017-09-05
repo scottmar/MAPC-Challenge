@@ -1,0 +1,43 @@
+##SMargeson's GitIgnore
+##All the usual suspects, plus a few personal favorites
+
+# Credential Files and security risks #
+twitter_key.py
+twitter_key.pyc
+credentials.py
+credentials.pyc
+
+# Jupyter auto-save directory #
+.ipynb_checkpoints/
+
+# Compiled source #
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+*.log
+*.sql
+*.sqlite
+
+# Mac + Windows files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
